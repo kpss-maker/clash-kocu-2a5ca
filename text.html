@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Clash Koçu</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #111;
+      color: #eee;
+    }
+    header {
+      background-color: #1e1e1e;
+      padding: 1rem;
+      text-align: center;
+      border-bottom: 2px solid #444;
+    }
+    .th-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      padding: 1rem;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background-color: #222;
+      color: #fff;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #444;
+    }
+    section {
+      padding: 1.5rem;
+      display: none;
+    }
+    section.active {
+      display: block;
+    }
+    textarea, input[type="text"], input[type="email"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 10px;
+    }
+    .like-btn {
+      margin-top: 10px;
+      background-color: #2a2a2a;
+      color: #fff;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .like-btn:hover {
+      background-color: #444;
+    }
+    .admin {
+      color: #00ff00;
+    }
+    footer {
+      background-color: #1e1e1e;
+      color: #aaa;
+      text-align: center;
+      padding: 1rem;
+      border-top: 2px solid #444;
+    }
+    .dzn-container img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 10px;
+      margin-bottom: 0.5rem;
+    }
+    .dzn-container {
+      margin-bottom: 2rem;
+    }
+    #menuAcBtn {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 999;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      font-size: 24px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .yan-menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: #222;
+      overflow-x: hidden;
+      padding-top: 60px;
+      transition: 0.3s;
+      z-index: 1000;
+    }
+    .yan-menu a {
+      padding: 10px 20px;
+      text-decoration: none;
+      color: #fff;
+      display: block;
+    }
+    .yan-menu a:hover {
+      background-color: #444;
+    }
+    .kapat-btn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 26px;
+      cursor: pointer;
+      color: #fff;
+    }
+    .video-metin iframe {
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const navLinks = document.querySelectorAll(".yan-menu a");
+      navLinks.forEach(link => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const secId = link.getAttribute("href").replace("#", "");
+          document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+          document.getElementById(secId).classList.add("active");
+          yanMenuyuKapat();
+        });
+      });
+      document.getElementById("anasayfa").classList.add("active");
+    });
+
+    function yanMenuyuAc() {
+      document.getElementById("yanMenu").style.left = "0";
+    }
+
+    function yanMenuyuKapat() {
+      document.getElementById("yanMenu").style.left = "-250px";
+    }
+
+    const icerik = {
+      9: `
+        <h3>TH9 Taktikleri</h3>
+        <div class="video-metin">
+          <iframe width="300" height="200" src="https://www.youtube.com/embed/YXkMQPz6Uo0" frameborder="0" allowfullscreen></iframe>
+          <p><strong>Açıklama:</strong> Golem yeri saldırısı: Golem savunmayı üzerine çekerken, büyücüler temizlik yapar, ardından domuz binicileri ile savunma hızla temizlenir. 3 yıldız alma şansı yüksektir.</p>
+        </div>
+      `,
+      10: `
+        <h3>TH10 Taktikleri</h3>
+        <div class="video-metin">
+          <iframe width="300" height="200" src="https://www.youtube.com/embed/eolZhQ7-YUQ" frameborder="0" allowfullscreen></iframe>
+          <p><strong>Açıklama:</strong> TH10 ile TH11 köyü bile rahatça yok edilir! Kolay, risksiz bir strateji. Özellikle ejderler ve öfke büyüleri ile saldırılar çok etkilidir. Strateji gerektirmeden bile 3 yıldız alma ihtimali yüksek.</p>
+        </div>
+      `
+    };
+
+    function gosterTH(th) {
+      const alan = document.getElementById("icerik-alani");
+      alan.innerHTML = icerik[th] || "İçerik bulunamadı.";
+    }
+  </script>
+</head>
+<body>
+  <div id="yanMenu" class="yan-menu">
+    <span class="kapat-btn" onclick="yanMenuyuKapat()">✖</span>
+    <a href="#anasayfa">Ana Sayfa</a>
+    <a href="#taktikler">Taktikler</a>
+    <a href="#duzenler">Düzenler</a>
+    <a href="#yorumlar">Yorumlar</a>
+    <a href="#hakkinda">Hakkında</a>
+  </div>
+  <button id="menuAcBtn" onclick="yanMenuyuAc()">☰</button>
+  <header>
+    <h1>⚔️ Clash Koçu</h1>
+  </header>
+  <main>
+    <section id="anasayfa">
+      <h2>Öne Çıkan İçerikler</h2>
+      <p>Yeni taktikler ve düzenlerle köyünü geliştir!</p>
+    </section>
+
+    <section id="taktikler">
+      <h2>Belediye Taktikleri</h2>
+      <div class="th-buttons">
+        <button onclick="gosterTH(9)">TH9</button>
+        <button onclick="gosterTH(10)">TH10</button>
+        <button onclick="gosterTH(11)">TH11</button>
+        <button onclick="gosterTH(12)">TH12</button>
+        <button onclick="gosterTH(13)">TH13</button>
+        <button onclick="gosterTH(14)">TH14</button>
+        <button onclick="gosterTH(15)">TH15</button>
+        <button onclick="gosterTH(16)">TH16</button>
+        <button onclick="gosterTH(17)">TH17</button>
+      </div>
+      <div id="icerik-alani">Taktik açıklamaları ve videoları buraya gelecek.</div>
+    </section>
+
+    <section id="duzenler">
+      <h2>Belediye Düzenleri</h2>
+      <div class="th-buttons">
+        <button onclick="document.getElementById('th9-duzen').scrollIntoView()">TH9</button>
+        <button onclick="document.getElementById('th10-duzen').scrollIntoView()">TH10</button>
+        <button onclick="document.getElementById('th11-duzen').scrollIntoView()">TH11</button>
+        <button onclick="document.getElementById('th12-duzen').scrollIntoView()">TH12</button>
+        <button onclick="document.getElementById('th13-duzen').scrollIntoView()">TH13</button>
+        <button onclick="document.getElementById('th14-duzen').scrollIntoView()">TH14</button>
+        <button onclick="document.getElementById('th15-duzen').scrollIntoView()">TH15</button>
+        <button onclick="document.getElementById('th16-duzen').scrollIntoView()">TH16</button>
+        <button onclick="document.getElementById('th17-duzen').scrollIntoView()">TH17</button>
+      </div>
+      <div id="th9-duzen"><h3>TH9 Düzenleri</h3>Buraya resim ve link eklenecek.</div>
+      <div id="th10-duzen"><h3>TH10 Düzenleri</h3></div>
+      <div id="th11-duzen"><h3>TH11 Düzenleri</h3></div>
+      <div id="th12-duzen"><h3>TH12 Düzenleri</h3></div>
+      <div id="th13-duzen"><h3>TH13 Düzenleri</h3></div>
+      <div id="th14-duzen"><h3>TH14 Düzenleri</h3></div>
+      <div id="th15-duzen"><h3>TH15 Düzenleri</h3></div>
+      <div id="th16-duzen"><h3>TH16 Düzenleri</h3></div>
+      <div id="th17-duzen"><h3>TH17 Düzenleri</h3></div>
+    </section>
+
+    <section id="yorumlar">
+      <h2>Yorumlar</h2>
+      <input type="text" id="yorumIsim" placeholder="Adınız (isteğe bağlı)" />
+      <input type="email" id="yorumEmail" placeholder="E-posta (zorunlu)" required />
+      <textarea placeholder="Yorumunuzu yazın..." id="yorumMetni"></textarea>
+      <button onclick="yorumEkle()">Gönder</button>
+      <div id="yorumKutusu"></div>
+    </section>
+
+    <section id="hakkinda">
+      <h2>Hakkında</h2>
+      <p>Clash Koçu, TH9'dan TH17'ye kadar savaş taktikleri ve düzenleri paylaşmak için oluşturulmuş rehber bir projedir.</p>
+    </section>
+  </main>
+  <footer>
+    <p>© 2025 Clash Koçu - Hazırlayan: BilgeAvcı</p>
+  </footer>
+</body>
+</html>
